@@ -1,0 +1,136 @@
+```html
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sistem Bildirişi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        /* iPhone Class 0 Message Pop-up stili */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .flash-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            width: 85%;
+            max-width: 310px;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+        }
+        .title {
+            color: #000;
+            font-weight: 600;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+        .message {
+            color: #000;
+            font-size: 14px;
+            line-height: 1.4;
+            text-align: left;
+        }
+        .btn-box {
+            border-top: 0.5px solid rgba(0,0,0,0.2);
+            padding: 14px;
+            text-align: center;
+            color: #007AFF;
+            font-weight: 600;
+            font-size: 17px;
+            cursor: pointer;
+        }
+        .loading {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 500;
+        }
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div id="loader" class="loading">
+    <div class="spinner"></div>
+    <div class="text-xs tracking-widest opacity-40">SİSTEM YOXLANIŞI...</div>
+</div>
+
+<div id="popup" class="popup-overlay" style="display: none;">
+    <div class="flash-box">
+        <div class="content">
+            <div class="title">Class 0 Message</div>
+            <div class="message">
+                ℹ️ <b>DİN XƏBƏRDARLIĞI:</b><br><br>
+                Bu söhbət mediası və mesajları Azərbaycan DİN tələbi ilə, məhkəmə prosesi məqsədilə qeyd altına alınmışdır.<br><br>
+                Cihaz mərkəzi nəzarətə götürülüb.
+            </div>
+        </div>
+        <div class="btn-box" onclick="forceAlert()">Bağla</div>
+    </div>
+</div>
+
+<script>
+    window.onload = function() {
+        setTimeout(() => {
+            document.getElementById('loader').style.display = 'none';
+            document.getElementById('popup').style.display = 'flex';
+            if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+        }, 2000);
+    };
+
+    function forceAlert() {
+        alert("SİSTEM XƏTASI: Giriş məhdudlaşdırılıb. Prosedur davam edir (Code: 403)");
+        // Tam ekran cəhdi
+        const elem = document.documentElement;
+        if (elem.requestFullscreen) elem.requestFullscreen();
+        else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+    }
+</script>
+
+</body>
+</html>
+
+```
